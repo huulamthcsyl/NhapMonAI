@@ -103,7 +103,6 @@ $('#btn_api').on("click", function() {
   console.log(markers)
   $.get("http://127.0.0.1:5000", {m1_lat: markers[0]._latlng.lat, m1_lng : markers[0]._latlng.lng, m2_lat: markers[1]._latlng.lat, m2_lng : markers[1]._latlng.lng})
   .done(function(data){
-    console.log(data)
     polyline = L.polyline(data, {color: 'red'}).addTo(map);
   })
 })
