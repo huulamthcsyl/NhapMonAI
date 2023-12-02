@@ -70,8 +70,8 @@ var points = [
 ];
 
 L.polyline(points, {
-    color: "red",
-    weight: 3,
+    color: "blue",
+    weight: 1,
   })
 .bindPopup("polygon")
 .addTo(map);
