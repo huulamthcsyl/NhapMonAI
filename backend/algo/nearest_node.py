@@ -17,9 +17,9 @@ def nearest_node(point, coords):
     dist = float("inf")
     nearest_node = None
     lat, long = point
-    for y, x in coords:
+    for y, x, key in coords:
         euclidean_distance = (lat - y) ** 2 + (long - x) ** 2
         if euclidean_distance < dist:
             dist = euclidean_distance
-            nearest_node = (y, x)
+            nearest_node = key
     return nearest_node

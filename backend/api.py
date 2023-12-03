@@ -3,21 +3,22 @@ import osmnx as ox
 from flask_cors import CORS
 import sys
 from algo.nearest_node import nearest_node
+from algo.djikstra import Graph
 
 app = Flask(__name__)
 CORS(app)
 
 
-def solve(orig, dest):
+def solve(start, end):
     G = ox.graph_from_place("Hoàn Kiếm, Hà Nội, Vietnam", network_type="drive")
-    coords = [(data["y"], data["x"]) for _, data in G.nodes(data=True)]
-    # orig_node = ox.nearest_nodes(G, orig["lng"], orig["lat"])
-    # dest_node = ox.nearest_nodes(G, dest["lng"], dest["lat"])
-    routes = ox.shortest_path(G, orig_node, dest_node)
-    coordinates = [(float(G.nodes[i]["y"]), float(G.nodes[i]["x"])) for i in routes]
-    coordinates.insert(0, (orig["lat"], orig["lng"]))
-    coordinates.append((dest["lat"], dest["lng"]))
-    return coordinates
+    coords = [(data["y"], data["x"], key) for key, data in G.nodes(data=True)]
+    nr_start = nearest_node((start["lat"], start["lng"]), coords)
+    nr_end = nearest_node((end["lat"], end["lng"]), coords)
+    graph = Graph(G)
+    path = graph.dijkstra(nr_start, nr_end)
+    path.appendleft((start["lat"], start["lng"]))
+    path.append((end["lat"], end["lng"]))
+    return list(path)
 
 
 @app.route("/")
