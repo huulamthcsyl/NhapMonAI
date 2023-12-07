@@ -1,21 +1,22 @@
 let config = {
-    minZoom: 7,
-    maxZoom: 18,
+  minZoom: 7,
+  maxZoom: 20,
 };
 // magnification with which the map will start
 const zoom = 17;
 // co-ordinates
 const lat = 21.02528315;
 const lng = 105.84213800949607;
-  
-  // calling map
+
+// calling map
 const map = L.map("map", config).setView([lat, lng], zoom);
-  
+
 // Used to load and display tile layers on the map
 // Most tile servers require attribution, which you can set under `Layer`
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 25,
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
 var points = [
@@ -70,19 +71,19 @@ var points = [
 ];
 
 L.polyline(points, {
-    color: "blue",
-    weight: 1,
-  })
-.bindPopup("polygon")
-.addTo(map);
+  color: "blue",
+  weight: 1,
+})
+  .bindPopup("polygon")
+  .addTo(map);
 
 let markers = []
 var polyline
 
 function onMapClick(e) {
-  const customPopup = `Lat: ${e.latlng.lat.toFixed(4)} <br /> Lng: ${e.latlng.lng.toFixed(4)}`;
+  const customPopup = `Lat: ${e.latlng.lat.toFixed(8)} <br /> Lng: ${e.latlng.lng.toFixed(8)}`;
   let marker = L.marker(e.latlng).bindPopup(customPopup).addTo(map)
-  marker.on("dblclick", function(){
+  marker.on("dblclick", function () {
     map.removeLayer(marker)
     markers = markers.filter(item => item != marker)
   })
@@ -91,18 +92,27 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
-$("#btn_clear").on("click", function(){
-  for(var i = 0; i < markers.length; i++){
+$("#btn_clear").on("click", function () {
+  for (var i = 0; i < markers.length; i++) {
     map.removeLayer(markers[i]);
   }
   markers = []
   map.removeLayer(polyline);
 })
 
-$('#btn_api').on("click", function() {
+$('#btn_api').on("click", function () {
   console.log(markers)
-  $.get("http://127.0.0.1:5000", {m1_lat: markers[0]._latlng.lat, m1_lng : markers[0]._latlng.lng, m2_lat: markers[1]._latlng.lat, m2_lng : markers[1]._latlng.lng})
-  .done(function(data){
-    polyline = L.polyline(data, {color: 'red'}).addTo(map);
-  })
+  $.get("http://127.0.0.1:5000", { m1_lat: markers[0]._latlng.lat, m1_lng: markers[0]._latlng.lng, m2_lat: markers[1]._latlng.lat, m2_lng: markers[1]._latlng.lng })
+    .done(function (data) {
+      polyline = L.polyline(data, { color: 'red' }).addTo(map);
+      // for (var i = 0; i < data.length; i++) {
+      //   var marker = L.marker([data[i][0], data[i][1]]).addTo(map);
+      // }
+    })
 })
+
+// let x =     [[21.025564209523807, 105.8428492047619],
+// [21.02554632455746, 105.84285646677019]]
+// const customPopup = `Lat:<br /> Lng:`;
+// L.marker([21.025564209523807, 105.8428492047619]).addTo(map)
+// L.marker([21.02554632455746, 105.84285646677019]).bindPopup(customPopup).addTo(map)
