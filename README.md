@@ -1,6 +1,19 @@
-# Cách sử dụng
-1. Mở file api.py để bật server rồi mở file index.html để chạy giao diện
-2. Chọn lần lượt hai điểm bằng cách click vào bản đồ
-3. Nhấn nút Find path ở góc trên bên trái để tìm đường đi giữa hai điểm
-4. Nếu muốn xoá marker thì click đúp vào marker đó
-5. Ấn nút Clear để xoá tất cả marker và tuyến đường hiện tại
+# Tìm đường đi ngắn nhất trên bản đồ
+
+## Hướng dẫn sử dụng
+1. Cài đặt các thư viện cần thiết bằng lệnh sau:
+```
+pip install -r requirements.txt
+```
+2. Chạy server bằng lệnh sau:
+```
+cd backend
+python api.py
+```
+3. Mở file index.html để chạy giao diện
+4. Chọn lần lượt hai điểm bằng cách click vào bản đồ
+5. Nhấn nút Find path ở góc trên bên trái để tìm đường đi giữa hai điểm
+6. Ấn nút Clear, hoặc Reload lại page để xoá tất cả marker và tuyến đường hiện tại.
+
+## Demo
+![Demo](https://media2.giphy.com/media/BcDW0jIhopHs6EVJeY/source.gif)
