@@ -16,4 +16,4 @@ python api.py
 6. Ấn nút Clear, hoặc Reload lại page để xoá tất cả marker và tuyến đường hiện tại.
 
 ## Demo
-![Demo](https://media2.giphy.com/media/BcDW0jIhopHs6EVJeY/source.gif)
+![source](https://github.com/huulamthcsyl/NhapMonAI/assets/95325908/1b851d0f-28e3-4fb4-a606-08e4cecb918b)
